@@ -1,0 +1,12 @@
+{
+  "name": "github-pages-sitemap-generator",
+  "version": "1.0.0",
+  "description": "Generate sitemap.xml of all GitHub Pages URLs",
+  "main": "generate-sitemap.js",
+  "scripts": {
+    "generate": "node .github/scripts/generate-sitemap.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  }
+}
