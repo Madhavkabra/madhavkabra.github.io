@@ -1,0 +1,35 @@
+name: Generate GitHub Pages Sitemap
+
+on:
+  workflow_dispatch:     # Allows manual run from Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run sitemap generator script
+      run: npm run generate
+
+    - name: Commit and push sitemap.xml if changed
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        if [[ `git status --porcelain` ]]; then
+          git add sitemap.xml
+          git commit -m "chore: update sitemap.xml via GitHub Actions"
+          git push
+        else
+          echo "No changes to commit"
+        fi
